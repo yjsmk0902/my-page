@@ -4,7 +4,8 @@ const USERNAME = "username";
 
 const loginForm = document.querySelector("#log-in");
 const loginInput = document.querySelector("#log-in input");
-const greeting = document.querySelector("#greeting");
+const greetingWelcome = document.querySelector("#greeting__welcome");
+const greetingName = document.querySelector("#greeting__name");
 
 const savedUsername = localStorage.getItem(USERNAME);
 
@@ -13,12 +14,13 @@ function loginSubmit(event){
     const username = loginInput.value;
     localStorage.setItem(USERNAME, username);
     loginForm.classList.add(HIDDEN);
-    paintGreetings(username);
+    paintGreetings(username);   
 }
 
 function paintGreetings(name){
-    greeting.innerText = `${name}님 안녕하세요`;
-    greeting.classList.remove(HIDDEN);
+    greetingName.innerText = name;
+    greetingName.classList.remove(HIDDEN);
+    greetingWelcome.classList.remove(HIDDEN);
 }
 
 if(savedUsername === null){

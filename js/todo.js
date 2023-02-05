@@ -4,6 +4,8 @@ const toDoForm = document.querySelector("#todo");
 const toDoInput = document.querySelector(".todo__input");
 const toDoDate = document.querySelector(".todo__date");
 const toDoList = document.querySelector("#todo-list");
+const noTodo = document.querySelector("#no-todo");
+
 
 let toDos = [];
 
@@ -13,11 +15,13 @@ function saveToDos(){
 
 function toDoSubmit(event){
     event.preventDefault();
-    const newTodo = toDoInput.value;
+    const newTodoInput = toDoInput.value;
+    const newTodoDate = toDoDate.value;
     toDoInput.innerText = "";
     const newTodoObj = {
-        text:newTodo,
         id: Date.now(),
+        text: newTodoInput,
+        limit: newTodoDate,
     };
     toDos.push(newTodoObj);
     paintToDo(newTodoObj);
@@ -33,18 +37,32 @@ function deleteToDo(event){
 
 function paintToDo(newTodo){
     const li = document.createElement("li");
-    li.id = newTodo.id;
     const span = document.createElement("span");
+    const spanDday = document.createElement("span");
     const button = document.createElement("button");
+
+    li.id = newTodo.id;
+    span.innerText = newTodo.text;
+    const dDay=calcDday(Date.parse(newTodo.limit));
+    if(dDay > 0){
+        spanDday.innerText=`D-${dDay}`;
+    }else if(dDay === 0){
+        spanDday.innerText="D-Day";
+    }else{
+        spanDday.innerText=`D+${-dDay}`;
+    }
+
     button.innerText = "❌";
     button.addEventListener("click", deleteToDo);
-    span.innerText = newTodo.text;
 
+    li.appendChild(spanDday);
     li.appendChild(span);
     li.appendChild(button);
     toDoList.appendChild(li);
+}
 
-
+function calcDday(date){
+    return Math.ceil((date - Date.now())/(1000*60*60*24));
 }
 
 toDoForm.addEventListener("submit", toDoSubmit);
