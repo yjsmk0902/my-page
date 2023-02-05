@@ -9,6 +9,28 @@
   </head>
   <body>
     <h1 id="clock"></h1>
+    <form id="log-in" class="hidden">
+      <input type="text" placeholder="누구?" />
+      <button type="submit">로그인</button>
+    </form>
+    <h1 id="greeting" class="hidden"></h1>
+
+    <form id="todo">
+      <input
+        class="todo__input"
+        type="text"
+        placeholder="할일을 적으세용"
+        required
+      />
+      <input class="todo__date" type="date" />
+    </form>
+    <ul id="todo-list"></ul>
+
+    <div id="weather">
+      <span></span>
+      <span></span>
+    </div>
+
     <script src="js/main.js"></script>
   </body>
 </html>
